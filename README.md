@@ -1,0 +1,1 @@
+# wp-internship-api-plugin
