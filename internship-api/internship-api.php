@@ -46,7 +46,7 @@ class WP_REST_Internships_Controller extends \WP_REST_Controller
             '/' . $this->rest_base . '/domestic', array(
                 array(
                     'methods' => \WP_REST_Server::READABLE,
-                    'callback' => array($this, 'get_foreign_offers'),
+                    'callback' => array($this, 'get_domestic_offers'),
                 ),
             ));
         register_rest_route(
