@@ -25,6 +25,7 @@ class WP_REST_Internships_Controller extends \WP_REST_Controller
     protected $password;
     protected $token;
     protected $company_id;
+    protected $domestic_offers;
     protected $foreign_offers;
 
     public function __construct()
