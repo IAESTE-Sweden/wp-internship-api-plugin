@@ -17,7 +17,6 @@ if (!defined('ABSPATH')) {
 
 class WP_REST_Internships_Controller extends \WP_REST_Controller
 {
-
     protected $namespace;
     protected $rest_base;
     protected $username;
@@ -85,7 +84,7 @@ class WP_REST_Internships_Controller extends \WP_REST_Controller
         $request = new WP_Http;
         $result = $request->request($url);
         $json = json_decode($result['body'], true);
-        return $json['records'];
+        return $this->format_response($json['records']);
     }
 
     public function create_url($report_id)
@@ -131,6 +130,21 @@ class WP_REST_Internships_Controller extends \WP_REST_Controller
     {
         $file = $this->get_filename($offer_type);
         return json_decode(file_get_contents($file), true);
+    }
+
+    public function format_response($internships)
+    {
+        $indexed = [];
+        foreach ($internships as $internship) {
+            $newInternship = [];
+            foreach ($internship as $key => $value) {
+                // Remove underscore and attribute id from keys
+                $newKey = implode(array_slice(explode('_', $key), 0, -1));
+                $newInternship[$newKey] = $value;
+            }
+            $indexed[] = $newInternship;
+        }
+        return $indexed;
     }
 
     public function hook_rest_server()
