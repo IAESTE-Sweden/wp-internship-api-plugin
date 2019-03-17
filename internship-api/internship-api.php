@@ -140,6 +140,7 @@ class WP_REST_Internships_Controller extends \WP_REST_Controller
             foreach ($internship as $key => $value) {
                 // Remove underscore and attribute id from keys
                 $newKey = implode(array_slice(explode('_', $key), 0, -1));
+                $newKey = str_replace('.', '', $newKey);
                 $newInternship[$newKey] = $value;
             }
             $indexed[] = $newInternship;
