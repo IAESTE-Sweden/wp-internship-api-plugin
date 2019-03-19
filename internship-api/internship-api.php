@@ -11,7 +11,7 @@ Author URI: levholm.se
 https://sites.google.com/iaeste.org/ep-user-guide/offers/exporting/api?authuser=0
  */
 
-include ('response_formatting.php');
+include 'response_formatting.php';
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -131,7 +131,8 @@ class WP_REST_Internships_Controller extends \WP_REST_Controller
     public function get_cached_data($offer_type)
     {
         $file = $this->get_filename($offer_type);
-        return json_decode(file_get_contents($file), true);
+        $data = json_decode(file_get_contents($file), true);
+        return filter_response($data);
     }
 
     public function hook_rest_server()

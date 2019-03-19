@@ -1,7 +1,8 @@
 <?php
 
-function format_response( $internships ) {
-    $indexed = [];
+function format_response($internships)
+{
+    $newInternships = [];
     foreach ($internships as $internship) {
         $newInternship = [];
         foreach ($internship as $key => $value) {
@@ -10,7 +11,22 @@ function format_response( $internships ) {
             $newKey = str_replace('.', '', $newKey);
             $newInternship[$newKey] = $value;
         }
-        $indexed[] = $newInternship;
+        $newInternships[] = $newInternship;
     }
-    return $indexed;
+    return $newInternships;
+}
+
+function filter_response($internships)
+{
+    $filtered_data = [];
+    foreach ($internships as $index => $internship) {
+        foreach ($internship as $key => $value) {
+            if ($key == 'Deadline') {
+                if (strtotime($value) >= strtotime(date('Y-m-d'))) {
+                    $filtered_data[] = $internship;
+                }
+            }
+        }
+    }
+    return $filtered_data;
 }
